@@ -64,7 +64,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.0" />
     <PackageReference Include="MiniProfiler" Version="3.2.0.157" />
     <PackageReference Include="MiniProfiler.MVC4" Version="3.0.11" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="StackExchange.Exceptional" Version="2.2.32" />
     <PackageReference Include="Validation" Version="2.3.7" />
     <PackageReference Include="WebGrease" Version="1.6.0" />

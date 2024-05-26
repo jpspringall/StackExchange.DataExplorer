@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
-using StackExchange.DataExplorer.Helpers;
-using Dapper;
 using System.Linq;
+using Dapper;
+using StackExchange.DataExplorer.Helpers;
 
 namespace StackExchange.DataExplorer.Models
 {
@@ -12,7 +11,7 @@ namespace StackExchange.DataExplorer.Models
     {
         public int Id { get; set; }
         public string TinyName { get; set; }
-        public string  Name { get; set; }
+        public string Name { get; set; }
         public string LongName { get; set; }
         public string Url { get; set; }
         public string ImageUrl { get; set; }
@@ -58,28 +57,19 @@ namespace StackExchange.DataExplorer.Models
 
                 return _relatedSite;
             }
-            private set {}
+            private set { }
         }
 
-        public string ConnectionString => 
-            UseConnectionStringOverride ? ConnectionStringOverride : ConnectionStringWebConfig;
-
-        private string ConnectionStringWebConfig =>
-            ConfigurationManager.ConnectionStrings["ReaderConnection"]
-                .ConnectionString
-                .Replace("!!DB!!", DatabaseName);
-
-        private bool UseConnectionStringOverride => ConnectionStringOverride.HasValue();
+        public string ConnectionString => ConnectionStringOverride;
 
         public string ImageCss => ImageBackgroundColor != null ? "background-color: #" + ImageBackgroundColor : "";
 
         public string ODataEndpoint => "/" + TinyName.ToLower() + "/atom";
 
-        public SqlConnection GetConnection(int maxPoolSize)
+        public SqlConnection GetConnection()
         {
             // TODO: do we even need this method any longer? are we still supporting about odata?
-            var cs = ConnectionString + (UseConnectionStringOverride ? "" : ((ConnectionString.EndsWith(";") ? "" : ";") + string.Format("Max Pool Size={0};",maxPoolSize)));
-            return new SqlConnection(cs);
+            return new SqlConnection(ConnectionString);
         }
 
         public SqlConnection GetOpenConnection()
@@ -115,25 +105,25 @@ namespace StackExchange.DataExplorer.Models
                 cmd.CommandTimeout = 300;
 
                 cmd.CommandText = "select count(*) from Posts where ParentId is null";
-                TotalQuestions = (int) cmd.ExecuteScalar();
+                TotalQuestions = (int)cmd.ExecuteScalar();
 
                 cmd.CommandText = "select count(*) from Posts where ParentId is not null";
-                TotalAnswers = (int) cmd.ExecuteScalar();
+                TotalAnswers = (int)cmd.ExecuteScalar();
 
                 cmd.CommandText = "select count(*) from Comments";
-                TotalComments = (int) cmd.ExecuteScalar();
+                TotalComments = (int)cmd.ExecuteScalar();
 
                 cmd.CommandText = "select max(CreationDate) from Posts";
                 LastPost = cmd.ExecuteScalar() as DateTime?;
 
                 cmd.CommandText = "select count(*) from Users";
-                TotalUsers = (int) cmd.ExecuteScalar();
+                TotalUsers = (int)cmd.ExecuteScalar();
 
                 cmd.CommandText = "select count(*) from Tags";
-                TotalTags = (int) cmd.ExecuteScalar();
+                TotalTags = (int)cmd.ExecuteScalar();
             }
 
-            Current.DB.Sites.Update(Id, new {TotalQuestions, TotalAnswers, TotalComments, LastPost, TotalUsers, TotalTags });
+            Current.DB.Sites.Update(Id, new { TotalQuestions, TotalAnswers, TotalComments, LastPost, TotalUsers, TotalTags });
         }
 
         /// <summary>
@@ -163,7 +153,7 @@ order by TABLE_NAME, ORDINAL_POSITION
                                 TableName = reader.GetString(0),
                                 ColumnName = reader.GetString(1)
                             };
-                            info.SetDataType(reader.GetString(2), reader.IsDBNull(3) ? null : (int?) reader.GetInt32(3));
+                            info.SetDataType(reader.GetString(2), reader.IsDBNull(3) ? null : (int?)reader.GetInt32(3));
                             columns.Add(info);
                         }
                     }
@@ -176,7 +166,7 @@ order by TABLE_NAME, ORDINAL_POSITION
             {
                 if (tableInfo == null || tableInfo.Name != column.TableName)
                 {
-                    tableInfo = new TableInfo {Name = column.TableName};
+                    tableInfo = new TableInfo { Name = column.TableName };
                     tables.Add(tableInfo);
                 }
 

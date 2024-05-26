@@ -1,2 +1,2 @@
-..\Build\Migrator --connection="Data Source=.;Initial Catalog=DataExplorer;Integrated Security=True"
+..\Build\Migrator --connection="Server=localhost,1533;Database=DataExplorer;User Id=sa;Password=P@ssw0rd;"
 PAUSE

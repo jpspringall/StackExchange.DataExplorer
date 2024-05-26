@@ -1,0 +1,71 @@
+name: data-explorer
+services:
+  datasource_mssqlserver_dataexplorer:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+     - ACCEPT_EULA=Y
+     - MSSQL_SA_PASSWORD=P@ssw0rd
+    ports:
+     - "1533:1433"
+    volumes:
+     - ./datasource-mssql-dataexplorer/data:/var/opt/mssql/data
+     - ./datasource-mssql-dataexplorer/backup:/var/opt/mssql/backup
+    healthcheck:
+      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-U", "sa", "-P", "P@ssw0rd", "-Q", "select 1"]
+      interval: 10s
+      retries: 10
+  email:
+    image: maildev/maildev
+    environment:
+      - TZ=Australia/Melbourne
+      - MAILDEV_WEB_PORT=1080
+      - MAILDEV_SMTP_PORT=25
+    ports:
+      - "1080:1080"
+#      - "1025:1025"
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: sa@dpostgres.com
+      PGADMIN_DEFAULT_PASSWORD: P@ssw0rd
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+  datasource_mssqlserver_2019:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+     - ACCEPT_EULA=Y
+     - MSSQL_SA_PASSWORD=P@ssw0rd
+    ports:
+     - "1633:1433"
+    volumes:
+     - ./datasource-mssql-2019/data:/var/opt/mssql/data
+     - ./datasource-mssql-2019/backup:/var/opt/mssql/backup
+    healthcheck:
+      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-U", "sa", "-P", "P@ssw0rd", "-Q", "select 1"]
+      interval: 10s
+      retries: 10
+  datasource_mssqlserver_2022:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+     - ACCEPT_EULA=Y
+     - MSSQL_SA_PASSWORD=P@ssw0rd
+    ports:
+     - "1733:1433"
+    volumes:
+     - ./datasource-mssql-2022/data:/var/opt/mssql/data
+     - ./datasource-mssql-2022/backup:/var/opt/mssql/backup
+    healthcheck:
+      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-U", "sa", "-P", "P@ssw0rd", "-Q", "select 1"]
+      interval: 10s
+      retries: 10
+  datasource_postgres:
+    image: postgres:16-bookworm
+    environment:
+     - POSTGRES_USER=postgresSuperUser
+     - POSTGRES_PASSWORD=P@ssw0rd
+    ports:
+     - "5432:5432"
+    volumes:
+      - ./datasource-postgres-data:/var/lib/postgresql/data

@@ -14,3 +14,4 @@ PublishProfiles/
 !App/packages/**/lib/**/*.dll
 *.stackdump
 sh.exe.stackdump
+Database/

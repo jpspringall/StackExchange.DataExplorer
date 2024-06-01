@@ -30,15 +30,19 @@ namespace StackExchange.DataExplorer
                 .Include("~/Scripts/jquery.autocomplete.js")
             );
 
+            //https: //github.com/chartjs/Chart.js/discussions/9295
+            bundles.Add(new Bundle("~/assets/js/codemirror")
+                .Include("~/Scripts/codemirror/cm6.bundle.js"));
+
             bundles.Add(new ScriptBundle("~/assets/js/query")
                 .Include("~/Scripts/date.js")
                 .Include("~/Scripts/jquery.textarearesizer.js")
                 .Include("~/Scripts/jquery.event.drag-2.0.js")
                 .Include("~/Scripts/slick.core.js")
                 .Include("~/Scripts/slick.grid.js")
-                .Include("~/Scripts/codemirror/codemirror.js")
-                .Include("~/Scripts/codemirror/sql.js")
-                .Include("~/Scripts/codemirror/runmode.js")
+                //.Include("~/Scripts/codemirror/codemirror.js")
+                //.Include("~/Scripts/codemirror/sql.js")
+                //.Include("~/Scripts/codemirror/runmode.js")
                 .Include("~/Scripts/flot/jquery.flot.js")
                 .Include("~/Scripts/flot/jquery.flot.time.js")
                 .Include("~/Scripts/flot/jquery.colorhelpers.js")

@@ -25,16 +25,20 @@
                 field.closest('form').submit();
             }
 
-            editor = CodeMirror.fromTextArea(target, $.extend({}, options, {
-                'lineNumbers': true,
-                'extraKeys': {
-                    'Ctrl-Enter': run,
-                    'Shift-Tab': 'indentLess',
-                    'Tab': 'indentMore',
-                    'F5': run
-                }
-            }));
+            const initialState = cm6.createEditorState("SELECT TOP 1 * FROM");
+            editor = cm6.createEditorViewFromTextArea(initialState, target);
+
+            //editor = CodeMirror.fromTextArea(target, $.extend({}, options, {
+            //    'lineNumbers': true,
+            //    'extraKeys': {
+            //        'Ctrl-Enter': run,
+            //        'Shift-Tab': 'indentLess',
+            //        'Tab': 'indentMore',
+            //        'F5': run
+            //    }
+            //}));
         } else {
+            throw 'why am i here';
             query = target[_textContent];
             editor = CodeMirror.runMode(query, options.mode, target);
         }
@@ -53,7 +57,7 @@
             return query;
         }   
 
-        var value = editor.getValue();
+        var value = editor.state.doc.toString();
 
         // Strip zero-width that randomly appears when copying text from the current
         // Data Explorer query editor into this one, at least until I can figure out
@@ -89,13 +93,13 @@ DataExplorer.ready(function () {
         var wrapper;
 
         DataExplorer.Sidebar.init({
-            editorTheme: editor.getOption('theme'),
+            editorTheme: editor.themeClasses,
             panel: panel,
             toolbar: '#editor-toolbar'
         });
 
         if (editor) {
-            wrapper = $(editor.getScrollerElement()).closest('.CodeMirror');
+            wrapper = $(editor.scrollDOM).closest('.CodeMirror');
         }
 
         function resizePanel(available) {
@@ -110,7 +114,7 @@ DataExplorer.ready(function () {
                 offset = wrapper.outerHeight() - wrapper.height();
                 
                 wrapper.height(available - offset);
-                editor.refresh();
+                //editor.refresh(); Not sure if this required but not does not look like there is direct replace meant in v6
             }
         }
 

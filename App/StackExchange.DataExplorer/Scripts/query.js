@@ -20,13 +20,16 @@
         field = target;
         target = target[0];
 
-        if (target.nodeName === 'TEXTAREA') {
+        //if (target.nodeName === 'TEXTAREA') {
+            if (target.id === 'sql') {
             function run() {
                 field.closest('form').submit();
             }
 
-            const initialState = cm6.createEditorState("SELECT TOP 1 * FROM");
-            editor = cm6.createEditorViewFromTextArea(initialState, target);
+            const sqlText = $("#sql-text-area").text();
+            const initialState = cm6.createEditorState(sqlText);
+            editor = cm6.createEditorView(initialState, target);
+            //editor = cm6.createEditorViewFromTextArea(initialState, target);
 
             let autoCompletionList = {};
             $(".schema-table")

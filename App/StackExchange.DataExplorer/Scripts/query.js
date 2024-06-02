@@ -142,7 +142,7 @@ DataExplorer.ready(function () {
         $('#editor').TextAreaResizer(resizePanel, { 
             'useParentWidth': true,
             'resizeWrapper': true,
-            'minHeight': 300,
+            'minHeight': 490,
             'initCallback': true
         });
     });

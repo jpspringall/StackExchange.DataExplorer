@@ -70,9 +70,10 @@ namespace StackExchange.DataExplorer
             );
 
             bundles.Add(new StyleBundle("~/assets/css/query")
-                .Include("~/Content/codemirror/codemirror.css")
-                .Include("~/Content/codemirror/custom.css")
-                .Include("~/Content/codemirror/theme.css")
+                //.Include("~/Content/codemirror/codemirror.css")
+                //.Include("~/Content/codemirror/custom.css")
+                //.Include("~/Content/codemirror/theme.css")
+                .Include("~/Content/codemirror/custom-6.css")
                 .Include("~/Content/slickgrid/slick.grid.css", new CssRewriteUrlTransform())
                 .Include("~/Content/query.css", new CssRewriteUrlTransform())
                 .Include("~/Content/qp/qp.css")

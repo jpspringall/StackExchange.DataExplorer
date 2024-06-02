@@ -28,6 +28,22 @@
             const initialState = cm6.createEditorState("SELECT TOP 1 * FROM");
             editor = cm6.createEditorViewFromTextArea(initialState, target);
 
+            let autoCompletionList = {};
+            $(".schema-table")
+                .each(function (tblIndex) {
+                    let tbl = ("dbo." + $(this).text()).toLowerCase();
+                    console.log(tbl);
+                    autoCompletionList[tbl] = [];
+                    $(this).next().children("dt").each(function (colIndex) {
+                        autoCompletionList[tbl].push($(this).text());
+                    });
+                });
+
+            console.log("autoCompletionList", autoCompletionList);
+
+            cm6.setAutoComplete(editor, "", autoCompletionList)
+
+
             //editor = CodeMirror.fromTextArea(target, $.extend({}, options, {
             //    'lineNumbers': true,
             //    'extraKeys': {

@@ -24442,8 +24442,9 @@ var cm6 = (function (exports) {
        specialVar: "@"
    });
 
+   const _sqlCompartment = new Compartment;
+
    function createEditorState(initialContents, options = {}) {
-       let mySchema = { 'my_schema.my_person': ['my_col_id', 'my_col_name'] };
        let extensions = [
            lineNumbers(),
            highlightActiveLineGutter(),
@@ -24469,10 +24470,7 @@ var cm6 = (function (exports) {
                ...foldKeymap,
                ...completionKeymap,
            ]),
-           sql({
-               dialect: MSSQL,
-               schema: mySchema
-           }),
+           _sqlCompartment.of(sql()),
            syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
        ];
 
@@ -24509,14 +24507,14 @@ var cm6 = (function (exports) {
        return view
    }
 
-   function setAutoComplete(editor, autoCompletionList) {
-       // editor.dispatch({
-       //     effects: StateEffect.appendConfig.of(
-       //         PostgreSQL.language.data.of({
-       //             autocomplete: schemaCompletionSource({ schema: autoCompletionList })
-       //         })
-       //     )
-       // });
+   function setAutoComplete(editor, dialectLanguage, autoCompletionList) {
+       const dl = MSSQL;
+       editor.dispatch({
+           effects: _sqlCompartment.reconfigure(sql({
+               dialect: dl,
+               schema: autoCompletionList
+           }))
+       });
    }
 
    exports.createEditorState = createEditorState;

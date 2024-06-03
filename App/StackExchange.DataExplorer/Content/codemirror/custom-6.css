@@ -1,13 +1,14 @@
 ﻿.a-demo-cm6 {
     /*resize: vertical;*/
+    height: 480px;
     overflow: auto;
 }
 
-    .a-demo-cm6 .cm-editor {
-        height: 100%;
-    }
+.a-demo-cm6 .cm-editor {
+    height: 100%;
+}
 
-    .a-demo-cm6 .cm-gutter, .a-demo-cm6 .cm-contnet {
-        height: 100%;
-        min-height: 100%;
-    }
+.a-demo-cm6 .cm-gutter, .a-demo-cm6 .cm-contnet {
+    height: 100%;
+    min-height: 100%;
+}

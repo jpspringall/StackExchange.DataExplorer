@@ -26,11 +26,11 @@
                 field.closest('form').submit();
             }
 
-            const sqlText = $("#sql-text-area").text();
+            const sqlText = $("#sql").text();
             const initialState = cm6.createEditorState(sqlText);
             editor = cm6.createEditorView(initialState, target);
             //editor = cm6.createEditorViewFromTextArea(initialState, target);
-
+            editor = cm6.createEditorViewWithTextArea(initialState, document.getElementById('sql-div'), target);
             let autoCompletionList = {};
             $(".schema-table")
                 .each(function (tblIndex) {

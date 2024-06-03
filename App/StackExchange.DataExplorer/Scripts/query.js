@@ -118,7 +118,7 @@ DataExplorer.ready(function () {
         });
 
         if (editor) {
-            wrapper = $(editor.scrollDOM).closest('.CodeMirror');
+            wrapper = $(editor.scrollDOM).closest('.cm-editor');
         }
 
         function resizePanel(available) {
@@ -134,6 +134,7 @@ DataExplorer.ready(function () {
                 
                 wrapper.height(available - offset);
                 //editor.refresh(); Not sure if this required but not does not look like there is direct replace meant in v6
+                editor.requestMeasure();
             }
         }
 

@@ -300,6 +300,7 @@
     <Content Include="Content\topbar.css" />
     <Content Include="Content\tutorial.css" />
     <Content Include="Scripts\codemirror\cm6.bundle.js" />
+    <Content Include="Scripts\codemirror\cm6.bundle.min.js" />
     <Content Include="Scripts\codemirror\codemirror.js" />
     <Content Include="Scripts\codemirror\runmode.js" />
     <Content Include="Scripts\codemirror\sql.js" />

@@ -32,7 +32,7 @@ namespace StackExchange.DataExplorer
 
             //https: //github.com/chartjs/Chart.js/discussions/9295
             bundles.Add(new Bundle("~/assets/js/codemirror")
-                .Include("~/Scripts/codemirror/cm6.bundle.js"));
+                .Include("~/Scripts/codemirror/cm6.bundle.min.js"));
 
             bundles.Add(new ScriptBundle("~/assets/js/query")
                 .Include("~/Scripts/date.js")

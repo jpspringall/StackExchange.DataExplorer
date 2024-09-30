@@ -924,12 +924,6 @@ ul.linkbar li {
   margin-top: 20px;
 }
 
-#sql{
-  height: 480px;
-  overflow: auto;
-  width: 100%;
-}
-
 #wrapper {
   margin-bottom: 30px;
   position: relative;
@@ -1199,25 +1193,6 @@ font-weight:bold;
 }
 
 /* code mirror */
-
-.CodeMirror-wrapping {
-  border-width: 1px;
-  border-style: solid;
-  border-top-color: #999;
-  border-bottom-color: #ccc;
-  border-left-color: #ccc;
-  border-right-color: #ccc;
-}
-
-.CodeMirror-wrapping.focus {
-  border-width: 1px;
-  border-style: solid;
-  border-top-color: #cf982d;
-  border-bottom-color: #cf982d;
-  border-left-color: #cf982d;
-  border-right-color: #cf982d;
-}
-
 
 #resultsetStats {
   width: 950px;

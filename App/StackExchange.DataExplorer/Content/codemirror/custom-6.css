@@ -1,0 +1,33 @@
+﻿.a-demo-cm6 {
+    /*resize: vertical;*/
+    height: 480px;
+    overflow: auto;
+}
+
+.a-demo-cm6 .cm-editor {
+    height: 100%;
+}
+
+.a-demo-cm6 .cm-gutter, .a-demo-cm6 .cm-contnet {
+    height: 100%;
+    min-height: 100%;
+}
+
+/* Need to sort these */
+.CodeMirror-wrapping {
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: #999;
+    border-bottom-color: #ccc;
+    border-left-color: #ccc;
+    border-right-color: #ccc;
+  }
+  
+  .CodeMirror-wrapping.focus {
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: #cf982d;
+    border-bottom-color: #cf982d;
+    border-left-color: #cf982d;
+    border-right-color: #cf982d;
+  }

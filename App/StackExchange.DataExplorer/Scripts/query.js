@@ -20,21 +20,44 @@
         field = target;
         target = target[0];
 
-        if (target.nodeName === 'TEXTAREA') {
+        //if (target.nodeName === 'TEXTAREA') {
+            if (target.id === 'sql') {
             function run() {
                 field.closest('form').submit();
             }
 
-            editor = CodeMirror.fromTextArea(target, $.extend({}, options, {
-                'lineNumbers': true,
-                'extraKeys': {
-                    'Ctrl-Enter': run,
-                    'Shift-Tab': 'indentLess',
-                    'Tab': 'indentMore',
-                    'F5': run
-                }
-            }));
+            const sqlText = $("#sql").text();
+            const initialState = cm6.createEditorState(sqlText);
+            editor = cm6.createEditorView(initialState, target);
+            //editor = cm6.createEditorViewFromTextArea(initialState, target);
+            editor = cm6.createEditorViewWithTextArea(initialState, document.getElementById('sql-div'), target);
+            let autoCompletionList = {};
+            $(".schema-table")
+                .each(function (tblIndex) {
+                    let tbl = ("dbo." + $(this).text()).toLowerCase();
+                    console.log(tbl);
+                    autoCompletionList[tbl] = [];
+                    $(this).next().children("dt").each(function (colIndex) {
+                        autoCompletionList[tbl].push($(this).text());
+                    });
+                });
+
+            console.log("autoCompletionList", autoCompletionList);
+
+            cm6.setAutoComplete(editor, "", autoCompletionList)
+
+
+            //editor = CodeMirror.fromTextArea(target, $.extend({}, options, {
+            //    'lineNumbers': true,
+            //    'extraKeys': {
+            //        'Ctrl-Enter': run,
+            //        'Shift-Tab': 'indentLess',
+            //        'Tab': 'indentMore',
+            //        'F5': run
+            //    }
+            //}));
         } else {
+            throw 'why am i here';
             query = target[_textContent];
             editor = CodeMirror.runMode(query, options.mode, target);
         }
@@ -53,7 +76,7 @@
             return query;
         }   
 
-        var value = editor.getValue();
+        var value = editor.state.doc.toString();
 
         // Strip zero-width that randomly appears when copying text from the current
         // Data Explorer query editor into this one, at least until I can figure out
@@ -89,13 +112,13 @@ DataExplorer.ready(function () {
         var wrapper;
 
         DataExplorer.Sidebar.init({
-            editorTheme: editor.getOption('theme'),
+            editorTheme: editor.themeClasses,
             panel: panel,
             toolbar: '#editor-toolbar'
         });
 
         if (editor) {
-            wrapper = $(editor.getScrollerElement()).closest('.CodeMirror');
+            wrapper = $(editor.scrollDOM).closest('.cm-editor');
         }
 
         function resizePanel(available) {
@@ -110,7 +133,8 @@ DataExplorer.ready(function () {
                 offset = wrapper.outerHeight() - wrapper.height();
                 
                 wrapper.height(available - offset);
-                editor.refresh();
+                //editor.refresh(); Not sure if this required but not does not look like there is direct replace meant in v6
+                editor.requestMeasure();
             }
         }
 
@@ -119,7 +143,7 @@ DataExplorer.ready(function () {
         $('#editor').TextAreaResizer(resizePanel, { 
             'useParentWidth': true,
             'resizeWrapper': true,
-            'minHeight': 300,
+            'minHeight': 490,
             'initCallback': true
         });
     });

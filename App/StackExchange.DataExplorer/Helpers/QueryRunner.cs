@@ -4,8 +4,8 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using StackExchange.DataExplorer.Models;
 using Dapper;
+using StackExchange.DataExplorer.Models;
 
 namespace StackExchange.DataExplorer.Helpers
 {
@@ -15,7 +15,7 @@ namespace StackExchange.DataExplorer.Helpers
             = GetMagicColumns();
 
         public static readonly Dictionary<string, Func<SqlConnection, IEnumerable<object>, List<object>>>.KeyCollection MagicColumnNames = _magicColumns.Keys;
-        
+
         public static void MergePivot(Site site, QueryResults current, QueryResults newResults)
         {
             int pivotIndex = -1;
@@ -74,7 +74,7 @@ namespace StackExchange.DataExplorer.Helpers
 
             foreach (var row in newRows)
             {
-                for (int i = pivotIndex+1; i < totalColumns; i++)
+                for (int i = pivotIndex + 1; i < totalColumns; i++)
                 {
                     row.Insert(pivotIndex, null);
                 }
@@ -86,7 +86,7 @@ namespace StackExchange.DataExplorer.Helpers
         {
             var sites = Current.DB.Sites.All();
             if (parsedQuery.TargetSites == TargetSites.AllNonMetaSites)
-            { 
+            {
                 sites = sites.Where(s => !s.Url.Contains("meta.")).ToList();
             }
             else if (parsedQuery.TargetSites == TargetSites.AllMetaSites)
@@ -125,7 +125,7 @@ namespace StackExchange.DataExplorer.Helpers
                         MergePivot(s, results, tmp);
                     }
                     catch (Exception)
-                    { 
+                    {
                         // don't blow up here ... just skip the site.
                     }
                 }
@@ -138,7 +138,7 @@ namespace StackExchange.DataExplorer.Helpers
                 {
                     row.Add(sites.First().SiteInfo);
                 }
-                
+
                 foreach (var s in sites.Skip(1))
                 {
                     if (result != null && result.Cancelled)
@@ -160,7 +160,7 @@ namespace StackExchange.DataExplorer.Helpers
                         results.Messages += "\n" + tmp.Messages;
                     }
                     catch (Exception)
-                    { 
+                    {
                         // don't blow up ... just skip the site
                     }
 
@@ -215,12 +215,12 @@ namespace StackExchange.DataExplorer.Helpers
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "Microsoft.Security", 
-            "CA2100:Review SQL queries for security vulnerabilities", 
+            "Microsoft.Security",
+            "CA2100:Review SQL queries for security vulnerabilities",
             Justification = "What else can I do, we are allowing users to run sql.")]
         public static QueryResults ExecuteNonCached(ParsedQuery query, Site site, User user, AsyncQueryRunner.AsyncResult result)
         {
-            var remoteIP = OData.GetRemoteIP(); 
+            var remoteIP = IpUtilities.GetRemoteIP();
             var key = "total-" + remoteIP;
             var currentCount = (int?)Current.GetCachedObject(key) ?? 0;
             currentCount++;
@@ -359,12 +359,12 @@ namespace StackExchange.DataExplorer.Helpers
                     }
                     else if (reader.FieldCount != 0)
                     {
-                        var resultSet = new ResultSet {MessagePosition = messages.Length};
+                        var resultSet = new ResultSet { MessagePosition = messages.Length };
                         results.ResultSets.Add(resultSet);
 
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
-                            var columnInfo = new ResultColumnInfo {Name = reader.GetName(i)};
+                            var columnInfo = new ResultColumnInfo { Name = reader.GetName(i) };
                             ResultColumnType colType;
                             if (ResultColumnInfo.ColumnTypeMap.TryGetValue(reader.GetFieldType(i), out colType))
                             {
@@ -669,7 +669,7 @@ namespace StackExchange.DataExplorer.Helpers
 
             // safe due to the long cast (not that it matters, it runs read only) 
             string list = String.Join(" , ",
-                                      items.Where(i => i != null && i is int).Select(i => ((int) i).ToString()).ToArray());
+                                      items.Where(i => i != null && i is int).Select(i => ((int)i).ToString()).ToArray());
             if (list == "")
             {
                 return items.ToList();
@@ -711,7 +711,7 @@ namespace StackExchange.DataExplorer.Helpers
                 {
                     try
                     {
-                        rval.Add(linkMap[(int) item]);
+                        rval.Add(linkMap[(int)item]);
                     }
                     catch
                     {

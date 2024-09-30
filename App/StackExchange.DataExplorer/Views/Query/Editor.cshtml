@@ -42,7 +42,10 @@
 
 <div id="editor">
     <div id="editor-panel" class="left-group compact">
-        <textarea id="sql" name="sql" rows="26">@Html.Raw(sql)</textarea>
+    <!-- name="sql" -->
+    <!-- @Html.Raw(sql) -->
+        <textarea id="sql" name="sql" rows="26" style="display:none">Select top 1</textarea> 
+        <div id="sql-div" class="a-demo-cm6 cm-editor-wrap"></div>
     </div>
     <div id="schema" class="right-group">
         <span class="heading">

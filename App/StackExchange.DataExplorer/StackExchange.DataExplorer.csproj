@@ -51,23 +51,23 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-	<PackageReference Include="Antlr" Version="3.5.0.2" />
-	<PackageReference Include="Dapper" Version="1.50.2" />
-	<PackageReference Include="Dapper.SqlBuilder" Version="1.50.0" />
-	<PackageReference Include="DotNetOpenAuth.AspNet" Version="4.3.4.13329" />
-	<PackageReference Include="DotNetOpenAuth.Mvc5" Version="4.3.4.13329" />
-	<PackageReference Include="DotNetOpenAuth.OpenId.RelyingParty" Version="4.3.4.13329" />
-	<PackageReference Include="MarkdownSharp" Version="1.13.0.0" />
-	<PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
-	<PackageReference Include="Microsoft.AspNet.Web.Optimization" Version="1.1.3" />
-	<PackageReference Include="Microsoft.Bcl" Version="1.1.10" />
-	<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.0" />
-	<PackageReference Include="MiniProfiler" Version="3.2.0.157" />
-	<PackageReference Include="MiniProfiler.MVC4" Version="3.0.11" />
-	<PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-	<PackageReference Include="StackExchange.Exceptional" Version="2.2.32" />
-	<PackageReference Include="Validation" Version="2.3.7" />
-	<PackageReference Include="WebGrease" Version="1.6.0" />
+    <PackageReference Include="Antlr" Version="3.5.0.2" />
+    <PackageReference Include="Dapper" Version="1.50.2" />
+    <PackageReference Include="Dapper.SqlBuilder" Version="1.50.0" />
+    <PackageReference Include="DotNetOpenAuth.AspNet" Version="4.3.4.13329" />
+    <PackageReference Include="DotNetOpenAuth.Mvc5" Version="4.3.4.13329" />
+    <PackageReference Include="DotNetOpenAuth.OpenId.RelyingParty" Version="4.3.4.13329" />
+    <PackageReference Include="MarkdownSharp" Version="1.13.0.0" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.Web.Optimization" Version="1.1.3" />
+    <PackageReference Include="Microsoft.Bcl" Version="1.1.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.0" />
+    <PackageReference Include="MiniProfiler" Version="3.2.0.157" />
+    <PackageReference Include="MiniProfiler.MVC4" Version="3.0.11" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="StackExchange.Exceptional" Version="2.2.32" />
+    <PackageReference Include="Validation" Version="2.3.7" />
+    <PackageReference Include="WebGrease" Version="1.6.0" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -134,6 +134,7 @@
     <Compile Include="Helpers\HelperTableCache.cs" />
     <Compile Include="Helpers\Crc16.cs" />
     <Compile Include="Helpers\CsvResult.cs" />
+    <Compile Include="Helpers\IpUtilities.cs" />
     <Compile Include="Helpers\Security\ActiveDirectory.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -189,12 +190,10 @@
     <Compile Include="Models\_Database.Specific.cs">
       <DependentUpon>_Database.cs</DependentUpon>
     </Compile>
-    <Compile Include="OData.svc.cs">
-      <DependentUpon>OData.svc</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\QueryRunner.cs" />
     <Content Include="Content\codemirror\codemirror.css" />
+    <Content Include="Content\codemirror\custom-6.css" />
     <Content Include="Content\codemirror\custom.css" />
     <Content Include="Content\codemirror\theme.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
@@ -300,6 +299,8 @@
     <Content Include="Content\qp\qp.xslt" />
     <Content Include="Content\topbar.css" />
     <Content Include="Content\tutorial.css" />
+    <Content Include="Scripts\codemirror\cm6.bundle.js" />
+    <Content Include="Scripts\codemirror\cm6.bundle.min.js" />
     <Content Include="Scripts\codemirror\codemirror.js" />
     <Content Include="Scripts\codemirror\runmode.js" />
     <Content Include="Scripts\codemirror\sql.js" />
@@ -335,7 +336,6 @@
     <Content Include="Content\packaged\viewer_editor.css" />
     <Content Include="Content\slickgrid\slick.grid.css" />
     <Content Include="favicon.ico" />
-    <Content Include="OData.svc" />
     <Content Include="Scripts\qp.js" />
     <Content Include="Scripts\query.graph.js" />
     <Content Include="Scripts\query.js" />
